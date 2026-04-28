@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ImmigrationOS — A Public Archive</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=IBM+Plex+Mono:wght@300;400;500&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0d0d0d;--paper:#f5f0e8;--cream:#ede8dc;--red:#b91c1c;--gray:#6b6b6b;--light-gray:#d4cfc5;--rule:#c4bfb5;--accent:#1a3a5c;--mono:'IBM Plex Mono',monospace;--serif:'Source Serif 4',Georgia,serif;--display:'Playfair Display',Georgia,serif}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--paper);color:var(--ink);font-family:var(--serif);font-size:17px;line-height:1.7;overflow-x:hidden}
+a.cite{color:inherit;text-decoration:underline;text-decoration-color:var(--red);text-decoration-thickness:1px;text-underline-offset:3px;transition:color .15s}
+a.cite:hover{color:var(--red)}
+.masthead{border-bottom:3px double var(--ink)}
+.masthead-top{display:flex;justify-content:space-between;align-items:center;padding:12px 60px;border-bottom:1px solid var(--rule);font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--gray)}
+.masthead-banner{text-align:center;padding:40px 60px 30px;border-bottom:1px solid var(--rule)}
+.pub-label{font-family:var(--mono);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gray);margin-bottom:16px}
+.masthead h1{font-family:var(--display);font-size:clamp(52px,8vw,96px);font-weight:900;line-height:.92;letter-spacing:-.02em}
+.masthead h1 em{font-style:italic;color:var(--red)}
+.masthead-sub{font-family:var(--serif);font-size:15px;color:var(--gray);margin-top:16px;font-style:italic;font-weight:300;max-width:640px;margin-left:auto;margin-right:auto;line-height:1.5}
+.masthead-nav{display:flex;justify-content:center;padding:0 60px}
+.masthead-nav a{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink);text-decoration:none;padding:14px 28px;border-right:1px solid var(--rule);transition:background .2s,color .2s}
+.masthead-nav a:first-child{border-left:1px solid var(--rule)}
+.masthead-nav a:hover{background:var(--ink);color:var(--paper)}
+.data-banner{background:var(--ink);color:var(--paper);padding:40px 60px;display:flex;justify-content:space-around;align-items:center;gap:20px;flex-wrap:wrap}
+.data-stat{text-align:center}
+.data-stat .num{font-family:var(--display);font-size:52px;font-weight:900;line-height:1}
+.data-stat .num em{color:#ef4444;font-style:normal}
+.data-stat .label{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;color:#a8a29e;margin-top:6px}
+.data-divider{width:1px;height:60px;background:#333}
+.lede{display:grid;grid-template-columns:1fr 380px;border-bottom:2px solid var(--ink);max-width:1200px;margin:0 auto}
+.lede-main{padding:60px;border-right:1px solid var(--rule)}
+.section-rule{display:flex;align-items:center;gap:12px;margin-bottom:24px}
+.section-rule span{font-family:var(--mono);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--red);font-weight:500;white-space:nowrap}
+.section-rule::after{content:'';flex:1;height:1px;background:var(--red);opacity:.4}
+.lede-headline{font-family:var(--display);font-size:clamp(32px,4vw,52px);font-weight:700;line-height:1.1;letter-spacing:-.02em;margin-bottom:20px}
+.lede-deck{font-size:19px;font-weight:300;font-style:italic;color:var(--gray);border-left:3px solid var(--red);padding-left:20px;margin-bottom:28px;line-height:1.5}
+.lede-body{font-size:16px;line-height:1.8;color:#222;columns:2;gap:40px}
+.lede-body p+p{margin-top:1em}
+.lede-sidebar{padding:40px 36px;background:var(--cream)}
+.sidebar-label{font-family:var(--mono);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gray);border-bottom:1px solid var(--rule);padding-bottom:8px;margin-bottom:20px}
+.sidebar-item{padding:16px 0;border-bottom:1px solid var(--rule)}
+.sidebar-item:last-child{border-bottom:none}
+.sidebar-item .date{font-family:var(--mono);font-size:10px;color:var(--gray);letter-spacing:.08em;margin-bottom:6px}
+.sidebar-item h4{font-family:var(--display);font-size:15px;font-weight:700;line-height:1.3;margin-bottom:6px}
+.sidebar-item p{font-size:13px;color:var(--gray);line-height:1.5}
+.sidebar-item a.cite{color:var(--gray)}
+.sidebar-item a.cite:hover{color:var(--red)}
+.timeline-section{max-width:1200px;margin:0 auto;padding:80px 60px;border-bottom:1px solid var(--rule)}
+.section-header{display:flex;align-items:baseline;gap:20px;margin-bottom:60px;border-bottom:2px solid var(--ink);padding-bottom:16px}
+.section-header h2{font-family:var(--display);font-size:36px;font-weight:700;letter-spacing:-.02em}
+.section-header .kicker{font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--gray)}
+.timeline{position:relative;padding-left:80px}
+.timeline::before{content:'';position:absolute;left:28px;top:0;bottom:0;width:2px;background:var(--rule)}
+.timeline-item{position:relative;margin-bottom:52px;opacity:0;transform:translateY(20px);animation:fadeUp .5s forwards}
+.timeline-item:nth-child(1){animation-delay:.1s}.timeline-item:nth-child(2){animation-delay:.2s}.timeline-item:nth-child(3){animation-delay:.3s}.timeline-item:nth-child(4){animation-delay:.4s}.timeline-item:nth-child(5){animation-delay:.5s}.timeline-item:nth-child(6){animation-delay:.6s}.timeline-item:nth-child(7){animation-delay:.7s}.timeline-item:nth-child(8){animation-delay:.8s}.timeline-item:nth-child(9){animation-delay:.9s}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+.timeline-dot{position:absolute;left:-59px;top:4px;width:14px;height:14px;border-radius:50%;background:var(--paper);border:2px solid var(--ink)}
+.timeline-item.critical .timeline-dot{background:var(--red);border-color:var(--red)}
+.timeline-year{font-family:var(--mono);font-size:11px;letter-spacing:.12em;color:var(--red);font-weight:500;margin-bottom:6px}
+.timeline-item h3{font-family:var(--display);font-size:22px;font-weight:700;letter-spacing:-.01em;margin-bottom:8px;line-height:1.2}
+.timeline-item p{font-size:15px;color:#333;line-height:1.7;max-width:700px}
+.timeline-amount{display:inline-block;font-family:var(--mono);font-size:11px;background:var(--ink);color:var(--paper);padding:2px 8px;margin-top:8px;letter-spacing:.06em}
+.three-col{max-width:1200px;margin:0 auto;padding:80px 60px;border-bottom:1px solid var(--rule)}
+.col-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:48px}
+.col-item{background:var(--paper);padding:36px 32px}
+.col-item .col-num{font-family:var(--display);font-size:64px;font-weight:900;line-height:1;color:var(--light-gray);margin-bottom:12px}
+.col-item h3{font-family:var(--display);font-size:20px;font-weight:700;margin-bottom:12px;line-height:1.2}
+.col-item p{font-size:14px;line-height:1.75;color:#444}
+.capabilities{max-width:1200px;margin:0 auto;padding:80px 60px;border-bottom:1px solid var(--rule)}
+.cap-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--rule);border:1px solid var(--rule);margin-top:48px}
+.cap-item{background:var(--paper);padding:40px;transition:background .3s}
+.cap-item:hover{background:var(--cream)}
+.cap-tag{font-family:var(--mono);font-size:9px;letter-spacing:.18em;text-transform:uppercase;padding:3px 8px;border:1px solid currentColor;display:inline-block;margin-bottom:16px}
+.cap-tag.surveillance{color:var(--red)}.cap-tag.enforcement{color:var(--accent)}.cap-tag.data{color:#065f46}.cap-tag.logistics{color:#92400e}
+.cap-item h3{font-family:var(--display);font-size:22px;font-weight:700;margin-bottom:12px;letter-spacing:-.01em;line-height:1.2}
+.cap-item p{font-size:14px;line-height:1.75;color:#444}
+.cap-source{font-family:var(--mono);font-size:10px;color:var(--gray);margin-top:16px;padding-top:16px;border-top:1px solid var(--rule);letter-spacing:.06em;line-height:1.9}
+.cap-source a{color:var(--gray);text-decoration:underline;text-decoration-color:var(--rule);transition:color .15s}
+.cap-source a:hover{color:var(--red)}
+.pullquote-section{background:var(--accent);color:var(--paper);padding:80px 60px;text-align:center}
+.pullquote-section blockquote{font-family:var(--display);font-size:clamp(22px,3.5vw,38px);font-weight:400;font-style:italic;line-height:1.4;max-width:900px;margin:0 auto 24px;letter-spacing:-.01em}
+.pullquote-section cite{font-family:var(--mono);font-size:11px;letter-spacing:.15em;text-transform:uppercase;color:#94a3b8;font-style:normal}
+.pullquote-section cite a{color:#94a3b8;text-decoration:underline}
+.pullquote-section cite a:hover{color:#e2d9cc}
+.concerns{background:#1a0a0a;color:var(--paper);padding:80px 60px}
+.concerns-inner{max-width:1200px;margin:0 auto}
+.concerns .section-header h2{color:var(--paper)}
+.concerns .section-header{border-bottom-color:#444}
+.concerns-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-top:48px}
+.concern-item{border-top:2px solid var(--red);padding-top:24px}
+.concern-item h3{font-family:var(--display);font-size:20px;font-weight:700;margin-bottom:12px;line-height:1.2}
+.concern-item p{font-size:14px;line-height:1.75;color:#c7bfb5}
+.concerns a.cite{color:#d6cec5;text-decoration-color:#ef4444}
+.concerns a.cite:hover{color:#ef4444}
+.sources-section{max-width:1200px;margin:0 auto;padding:80px 60px;border-bottom:1px solid var(--rule)}
+.sources-table{width:100%;border-collapse:collapse;margin-top:48px;font-size:14px}
+.sources-table thead tr{border-bottom:2px solid var(--ink)}
+.sources-table th{font-family:var(--mono);font-size:10px;letter-spacing:.15em;text-transform:uppercase;text-align:left;padding:12px 16px;color:var(--gray)}
+.sources-table td{padding:14px 16px;border-bottom:1px solid var(--rule);vertical-align:top;line-height:1.5}
+.sources-table tr:hover td{background:var(--cream)}
+.source-type{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:2px 7px;border:1px solid currentColor;white-space:nowrap}
+.source-type.gov{color:var(--accent)}.source-type.press{color:#065f46}.source-type.ngo{color:var(--red)}.source-type.company{color:#92400e}.source-type.congress{color:#6b21a8}.source-type.academic{color:#0e7490}
+.sources-table a{color:var(--ink);text-decoration:underline;text-decoration-color:var(--rule);transition:color .2s,text-decoration-color .2s}
+.sources-table a:hover{color:var(--red);text-decoration-color:var(--red)}
+footer{background:var(--ink);color:var(--paper);padding:60px;text-align:center}
+footer .footer-title{font-family:var(--display);font-size:28px;font-weight:700;font-style:italic;margin-bottom:12px}
+footer p{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:#78716c;max-width:600px;margin:0 auto;line-height:1.8}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--paper)}::-webkit-scrollbar-thumb{background:var(--light-gray)}
+@media(max-width:900px){.lede{grid-template-columns:1fr}.lede-body{columns:1}.lede-sidebar{display:none}.col-grid,.cap-grid,.concerns-grid{grid-template-columns:1fr}.data-divider{display:none}.masthead-top,.masthead-banner,.masthead-nav,.lede-main{padding-left:24px;padding-right:24px}.timeline-section,.three-col,.capabilities,.sources-section,.concerns{padding:60px 24px}}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-top">
+    <span>Public Interest Archive</span>
+    <span>Updated: April 2026</span>
+    <span>ICE Contract 70CTD022FR0000170</span>
+  </div>
+  <div class="masthead-banner">
+    <div class="pub-label">A documented record of AI-powered immigration enforcement</div>
+    <h1><em>Immigration</em>OS</h1>
+    <div class="masthead-sub">The architecture, history, capabilities, contracts, and civil liberties implications of ICE's AI deportation platform — built by Palantir Technologies.</div>
+  </div>
+  <nav class="masthead-nav">
+    <a href="#overview">Overview</a>
+    <a href="#timeline">Timeline</a>
+    <a href="#system">The System</a>
+    <a href="#concerns">Concerns</a>
+    <a href="#sources">Sources</a>
+  </nav>
+</header>
+
+<div class="data-banner">
+  <div class="data-stat"><div class="num"><em>$287</em>M</div><div class="label">Total ICE–Palantir contracts 2011–2025</div></div>
+  <div class="data-divider"></div>
+  <div class="data-stat"><div class="num"><em>14</em></div><div class="label">Years of Palantir infrastructure at ICE</div></div>
+  <div class="data-divider"></div>
+  <div class="data-stat"><div class="num"><em>$30</em>M</div><div class="label">ImmigrationOS sole-source contract, April 2025</div></div>
+  <div class="data-divider"></div>
+  <div class="data-stat"><div class="num"><em>0</em></div><div class="label">Other vendors allowed to bid</div></div>
+  <div class="data-divider"></div>
+  <div class="data-stat"><div class="num"><em>4</em></div><div class="label">Presidential administrations spanning the contract</div></div>
+</div>
+
+<section id="overview" class="lede">
+  <div class="lede-main">
+    <div class="section-rule"><span>Overview</span></div>
+    <h2 class="lede-headline">A Sole-Source Contract for the Infrastructure of Mass Deportation</h2>
+    <p class="lede-deck">ImmigrationOS is not a new idea. It is the culmination of a 14-year, $287 million relationship between ICE and Palantir Technologies — built across four administrations, and now accelerated into a real-time deportation targeting machine.</p>
+    <div class="lede-body">
+      <p>In April 2025, ICE awarded Palantir Technologies a <a class="cite" href="https://sam.gov/opp/f71acee6010c423db4902446a59a690c/view" target="_blank" rel="noopener">$30 million sole-source contract</a> to build the Immigration Lifecycle Operating System (ImmigrationOS) — an AI-powered platform designed to identify, target, track, and deport individuals at scale. ICE cited an "urgent and compelling" national security need, and declared Palantir the only possible vendor.</p>
+      <p>The system is built on Palantir's existing <a class="cite" href="https://epic.org/documents/epic-v-ice-palantir-databases/" target="_blank" rel="noopener">Investigative Case Management (ICM) platform</a>, which has served as the official system of record for all ICE investigative cases since 2014. That proprietary foundation is precisely why no other vendor could bid: ICE had already committed its entire enforcement architecture to Palantir's codebase.</p>
+      <p>ImmigrationOS <a class="cite" href="https://www.americanimmigrationcouncil.org/blog/ice-immigrationos-palantir-ai-track-immigrants/" target="_blank" rel="noopener">ingests data from across the federal government</a> — IRS tax records, Social Security files, passport databases, DMV records, Medicaid enrollment data, license plate readers — and assembles them into real-time profiles of deportation targets. Its field-facing tool, <a class="cite" href="https://www.404media.co/elite-the-palantir-app-ice-uses-to-find-neighborhoods-to-raid/" target="_blank" rel="noopener">ELITE (Enhanced Leads Identification &amp; Targeting for Enforcement)</a>, allows agents to draw geographic shapes on a map and select "target-rich" neighborhoods for raids.</p>
+      <p>The platform was <a class="cite" href="https://www.executivegov.com/articles/palantir-ice-contract-immigrationos" target="_blank" rel="noopener">prototyped by September 25, 2025</a>, with the contract running through September 2027. A concurrent $29.9 million modification renewed operations and maintenance. By late 2025, Palantir had also begun a <a class="cite" href="https://fortune.com/2025/12/09/palantir-new-contract-uscis-ice/" target="_blank" rel="noopener">separate contract with USCIS</a> — placing it on both the enforcement and benefits sides of the immigration system simultaneously.</p>
+      <p>The story is not simply about a government contract. It is about how a private company's proprietary software became irreplaceable state infrastructure — and what that means for <a class="cite" href="https://bhr.stern.nyu.edu/quick-take/palantir-is-profiting-from-trumps-ravenous-appetite-for-deportations/" target="_blank" rel="noopener">democratic accountability, civil liberties, and the people caught in the system</a>.</p>
+    </div>
+  </div>
+  <aside class="lede-sidebar">
+    <div class="sidebar-label">Key Developments</div>
+    <div class="sidebar-item">
+      <div class="date">April 17, 2025</div>
+      <h4>$30M contract awarded — no competitive bid</h4>
+      <p>ICE issues <a class="cite" href="https://sam.gov/opp/f71acee6010c423db4902446a59a690c/view" target="_blank" rel="noopener">J&amp;A-25-0092</a>, citing "urgent and compelling need" under FAR 8.405-6(a)(1)(i)(A).</p>
+    </div>
+    <div class="sidebar-item">
+      <div class="date">September 25, 2025</div>
+      <h4>ImmigrationOS prototype delivered</h4>
+      <p>Palantir delivers on deadline. ICE immediately issues <a class="cite" href="https://www.executivegov.com/articles/palantir-ice-contract-immigrationos" target="_blank" rel="noopener">$29.9M renewal (J&amp;A-25-0309)</a>, switching justification to "only one source."</p>
+    </div>
+    <div class="sidebar-item">
+      <div class="date">September 2025</div>
+      <h4>ELITE field targeting tool deployed</h4>
+      <p><a class="cite" href="https://www.404media.co/elite-the-palantir-app-ice-uses-to-find-neighborhoods-to-raid/" target="_blank" rel="noopener">Internal ICE documents obtained by 404 Media</a> reveal map-based neighborhood targeting with Medicaid-derived confidence scores.</p>
+    </div>
+    <div class="sidebar-item">
+      <div class="date">October 2025</div>
+      <h4>Palantir expands to USCIS</h4>
+      <p>A <a class="cite" href="https://fortune.com/2025/12/09/palantir-new-contract-uscis-ice/" target="_blank" rel="noopener">separate "VOWS" platform contract at USCIS</a> gives Palantir coverage across the entire immigration pipeline.</p>
+    </div>
+    <div class="sidebar-item">
+      <div class="date">December 2025</div>
+      <h4>Washington Post investigation</h4>
+      <p><a class="cite" href="https://www.washingtonpost.com/technology/2025/12/03/palantir-immigration-ice/" target="_blank" rel="noopener">Reveals CEO Alex Karp's ideological shift</a> — from "walked away" from ICE contracts to championing mass deportation infrastructure.</p>
+    </div>
+    <div class="sidebar-item">
+      <div class="date">January 2026</div>
+      <h4>ELITE user guide published</h4>
+      <p><a class="cite" href="https://www.404media.co/here-is-the-user-guide-for-elite-the-tool-palantir-made-for-ice/" target="_blank" rel="noopener">404 Media publishes internal user guide</a> confirming Medicaid data integration, geospatial targeting, and confidence scoring methodology.</p>
+    </div>
+  </aside>
+</section>
+
+<section id="timeline" class="timeline-section">
+  <div class="section-header">
+    <h2>Timeline of the ICE–Palantir Relationship</h2>
+    <span class="kicker">2011–2026</span>
+  </div>
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">2011 — Obama Administration</div>
+      <h3>Initial Contract: Homeland Security Investigations</h3>
+      <p>Palantir begins work with <a class="cite" href="https://blog.palantir.com/about-palantir-ddddb78aec29" target="_blank" rel="noopener">ICE's Homeland Security Investigations (HSI) division</a> — centered on investigating transnational criminal organizations. This framing as criminal investigation, rather than deportation support, will remain central to Palantir's public positioning for over a decade.</p>
+    </div>
+
+    <div class="timeline-item critical">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">2014 — Obama Administration</div>
+      <h3>$41M ICM Contract: The Foundation Is Built</h3>
+      <p>ICE awards Palantir a <a class="cite" href="https://epic.org/documents/epic-v-ice-palantir-databases/" target="_blank" rel="noopener">$41 million contract to build and maintain the Investigative Case Management (ICM) system</a> — modernizing ICE's legacy TECS database. ICM gives every ICE agent access to a unified network of federal and private databases, combining immigration history, employment records, biometrics, family relationships, license plate data, and social media profiles. ICE describes ICM as "mission critical."
+      <span class="timeline-amount">$41,000,000 — Initial ICM contract</span></p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">2014 — Concurrent</div>
+      <h3>FALCON: Search, Analysis, and Field Operations</h3>
+      <p>Palantir also builds <a class="cite" href="https://epic.org/documents/epic-v-ice-palantir-databases/" target="_blank" rel="noopener">FALCON — a suite of data analysis and visualization tools</a> for ICE agents, including FALCON-SA (Search and Analysis), FALCON-DARTTS (trade-based crime), and FALCON-Roadrunner (weapons trafficking). FALCON enables agents to connect subject records across jurisdictions, conduct telephone searches, and link cases across departments.</p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">2017 — Trump Administration I</div>
+      <h3>ICM Reaches "Final Operation Capacity" — Used Across Enforcement Divisions</h3>
+      <p><a class="cite" href="https://www.rsn.org/001/documents-offer-rare-insight-on-ices-close-relationship-with-palantir.html" target="_blank" rel="noopener">Documents obtained by The Intercept disprove Palantir's claim</a> that its tools are used only for criminal investigations. In 2017, HSI and ERO conduct a joint operation using ICM to arrest family members of undocumented children caught at the border. ICM reaches "final operation capacity" under the first Trump administration.</p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">2019 — Trump Administration I</div>
+      <h3>Mississippi Raids; Internal Protest; Palantir Declines ERO Contracts</h3>
+      <p>HSI deploys FALCON to coordinate <a class="cite" href="https://en.wikipedia.org/wiki/Palantir_Technologies" target="_blank" rel="noopener">raids on food-processing plants in Mississippi — nearly 700 people arrested</a>. Concurrently, Palantir employees protest the company's ICE work. In 2020, Palantir writes to Amnesty International stating it has <a class="cite" href="https://media.business-humanrights.org/media/documents/Palantir-Technologies-Response-to-Amnesty-International-Letter_VYQb6ID.pdf" target="_blank" rel="noopener">"purposefully declined" ERO and CBP contracts</a> due to human rights concerns — drawing an explicit line it will later erase.</p>
+    </div>
+
+    <div class="timeline-item critical">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">2022 — Biden Administration</div>
+      <h3>$90M Renewal: The Lock-In Deepens</h3>
+      <p>ICE renews the Palantir contract for <a class="cite" href="https://bhr.stern.nyu.edu/quick-take/palantir-is-profiting-from-trumps-ravenous-appetite-for-deportations/" target="_blank" rel="noopener">five years at approximately $90 million</a>. The contract ID — 70CTD022FR0000170 — is the same task order that will later be modified to create ImmigrationOS. FALCON is retired. By this point, the proprietary architecture that will later justify sole-source procurement is firmly entrenched.
+      <span class="timeline-amount">$90,000,000 — 5-year renewal</span></p>
+    </div>
+
+    <div class="timeline-item critical">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">April 2025 — Trump Administration II</div>
+      <h3>ImmigrationOS: The $30M Sole-Source Contract</h3>
+      <p>ICE modifies task order 70CTD022FR0000170, citing <a class="cite" href="https://sam.gov/opp/f71acee6010c423db4902446a59a690c/view" target="_blank" rel="noopener">J&amp;A-25-0092</a>. <a class="cite" href="https://www.axios.com/local/denver/2025/05/01/palantir-deportations-ice-immigration-trump" target="_blank" rel="noopener">The justification: urgent and compelling need; Palantir is the only possible source.</a> A March 2025 executive order simultaneously compels agencies to share data via <a class="cite" href="https://thehill.com/policy/technology/5667232-palantir-trump-administration-surveillance/" target="_blank" rel="noopener">Palantir's Foundry platform</a>, institutionalizing Palantir as the connective tissue of federal data sharing.
+      <span class="timeline-amount">$30,000,000 — ImmigrationOS contract</span></p>
+    </div>
+
+    <div class="timeline-item critical">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">September–October 2025</div>
+      <h3>Prototype Delivered; Renewed; ELITE Deployed; USCIS Contract Signed</h3>
+      <p>ImmigrationOS prototype delivered on deadline. ICE immediately issues <a class="cite" href="https://www.executivegov.com/articles/palantir-ice-contract-immigrationos" target="_blank" rel="noopener">J&amp;A-25-0309 ($29.9M)</a> for O&amp;M, switching justification from "urgent need" to "only one source." <a class="cite" href="https://www.404media.co/elite-the-palantir-app-ice-uses-to-find-neighborhoods-to-raid/" target="_blank" rel="noopener">ELITE is deployed</a>. A <a class="cite" href="https://fortune.com/2025/12/09/palantir-new-contract-uscis-ice/" target="_blank" rel="noopener">USCIS "VOWS" platform contract</a> is signed, placing Palantir on both the enforcement and benefits sides of immigration.
+      <span class="timeline-amount">$29,900,000 — O&amp;M renewal</span></p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">December 2025</div>
+      <h3>Washington Post: Karp's Ideological Shift Revealed</h3>
+      <p><a class="cite" href="https://www.washingtonpost.com/technology/2025/12/03/palantir-immigration-ice/" target="_blank" rel="noopener">The Washington Post reports</a> that CEO Alex Karp — formerly a Democrat who said mass deportation "makes no sense" — has declared Palantir "completely anti-woke" and championed Trump's crackdown. <a class="cite" href="https://thehill.com/policy/technology/5667232-palantir-trump-administration-surveillance/" target="_blank" rel="noopener">Palantir's September 2025 federal contract total reaches $128 million — its largest monthly sum on record.</a></p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-year">January 2026</div>
+      <h3>ELITE User Guide Leaked; Medicaid Data Confirmed; Congress Demands Answers</h3>
+      <p><a class="cite" href="https://www.404media.co/here-is-the-user-guide-for-elite-the-tool-palantir-made-for-ice/" target="_blank" rel="noopener">404 Media publishes ELITE's internal user guide</a>, confirming Medicaid records, DMV files, and utility data feed address confidence scores. <a class="cite" href="https://www.biometricupdate.com/202601/ice-using-data-and-probability-to-decide-where-to-detain-and-arrest-people" target="_blank" rel="noopener">Agents draw shapes on maps to designate "target-rich areas" for raids.</a> <a class="cite" href="https://menendez.house.gov/imo/media/doc/palantir_letter.pdf" target="_blank" rel="noopener">Congressional representatives demand transparency</a> from Palantir. Total ICE–Palantir payments reach $287 million.</p>
+    </div>
+
+  </div>
+</section>
+
+<section id="system" class="three-col">
+  <div class="section-header">
+    <h2>The Three Operational Pillars</h2>
+    <span class="kicker">As stated in ICE contract justification documents</span>
+  </div>
+  <div class="col-grid">
+    <div class="col-item">
+      <div class="col-num">01</div>
+      <h3>Targeting &amp; Enforcement Prioritization</h3>
+      <p>Streamlines identification and apprehension based on ICE enforcement priorities — affiliates of transnational criminal organizations, visa overstays, and "violent criminals." The <a class="cite" href="https://www.404media.co/elite-the-palantir-app-ice-uses-to-find-neighborhoods-to-raid/" target="_blank" rel="noopener">ELITE app</a> operationalizes this pillar in the field, converting data profiles into geospatial raid plans. Defined verbatim in <a class="cite" href="https://sam.gov/opp/f71acee6010c423db4902446a59a690c/view" target="_blank" rel="noopener">J&amp;A-25-0092</a>.</p>
+    </div>
+    <div class="col-item">
+      <div class="col-num">02</div>
+      <h3>Self-Deportation Tracking</h3>
+      <p>Provides <a class="cite" href="https://www.axios.com/local/denver/2025/05/01/palantir-deportations-ice-immigration-trump" target="_blank" rel="noopener">"near real-time visibility" into instances of voluntary departure</a> from the United States. Critics note this creates a surveillance mechanism for people who have already left — enabling monitoring of the voluntary departure pipeline and potential re-targeting upon return. Per <a class="cite" href="https://sam.gov/opp/f71acee6010c423db4902446a59a690c/view" target="_blank" rel="noopener">J&amp;A-25-0092</a>.</p>
+    </div>
+    <div class="col-item">
+      <div class="col-num">03</div>
+      <h3>Immigration Lifecycle Operations</h3>
+      <p>Manages the complete end-to-end process from identification through removal — including deportation logistics and transportation resource allocation. <a class="cite" href="https://www.404media.co/leaked-palantirs-plan-to-help-ice-deport-people/" target="_blank" rel="noopener">Internal Palantir wiki documents describe work supporting deportation logistics.</a> <a class="cite" href="https://bhr.stern.nyu.edu/quick-take/palantir-is-profiting-from-trumps-ravenous-appetite-for-deportations/" target="_blank" rel="noopener">The system treats deportation as an optimization problem</a> with throughput as the metric.</p>
+    </div>
+  </div>
+</section>
+
+<section class="capabilities">
+  <div class="section-header">
+    <h2>System Architecture &amp; Data Sources</h2>
+    <span class="kicker">Technical capabilities and data integration</span>
+  </div>
+  <div class="cap-grid">
+    <div class="cap-item">
+      <span class="cap-tag data">Data Integration</span>
+      <h3>Cross-Agency Data Fusion</h3>
+      <p>ImmigrationOS and its predecessor ICM <a class="cite" href="https://www.americanimmigrationcouncil.org/blog/ice-immigrationos-palantir-ai-track-immigrants/" target="_blank" rel="noopener">integrate data from across the federal government</a>: IRS tax records, Social Security files, passport databases, DMV records, Medicaid enrollment, utility bills, and license plate reader data. A March 2025 executive order formalized this by mandating agencies share data via Palantir's Foundry platform. <a class="cite" href="https://thehill.com/policy/technology/5667232-palantir-trump-administration-surveillance/" target="_blank" rel="noopener">Palantir also participated in DOGE efforts to build a "mega API" at the IRS</a>, and in September 2025 the Treasury Department awarded Palantir a contract to create a "unified API layer."</p>
+      <div class="cap-source">Sources: <a href="https://sam.gov/opp/f71acee6010c423db4902446a59a690c/view" target="_blank" rel="noopener">ICE J&amp;A-25-0092</a> · <a href="https://www.404media.co/elite-the-palantir-app-ice-uses-to-find-neighborhoods-to-raid/" target="_blank" rel="noopener">404 Media</a> · <a href="https://www.americanimmigrationcouncil.org/blog/ice-immigrationos-palantir-ai-track-immigrants/" target="_blank" rel="noopener">American Immigration Council</a> · <a href="https://thehill.com/policy/technology/5667232-palantir-trump-administration-surveillance/" target="_blank" rel="noopener">The Hill</a></div>
+    </div>
+    <div class="cap-item">
+      <span class="cap-tag surveillance">Field Targeting</span>
+      <h3>ELITE: Geospatial Raid Planning</h3>
+      <p><a class="cite" href="https://www.404media.co/elite-the-palantir-app-ice-uses-to-find-neighborhoods-to-raid/" target="_blank" rel="noopener">ELITE populates a map with deportation targets</a>, assigns each person a "confidence score" for their current address based on Medicaid and government data, and allows agents to draw geographic shapes to identify "target-rich" neighborhoods. It represents a <a class="cite" href="https://www.biometricupdate.com/202601/ice-using-data-and-probability-to-decide-where-to-detain-and-arrest-people" target="_blank" rel="noopener">shift from individual tracking to neighborhood-scale enforcement</a> — raising fundamental questions about probable cause and Fourth Amendment protections.</p>
+      <div class="cap-source">Sources: <a href="https://www.404media.co/here-is-the-user-guide-for-elite-the-tool-palantir-made-for-ice/" target="_blank" rel="noopener">404 Media ELITE user guide</a> · <a href="https://www.biometricupdate.com/202601/ice-using-data-and-probability-to-decide-where-to-detain-and-arrest-people" target="_blank" rel="noopener">Biometric Update</a> · <a href="https://fortune.com/2026/01/26/ice-allegedly-uses-palantir-tool-tracking-medicaid-data/" target="_blank" rel="noopener">Fortune</a></div>
+    </div>
+    <div class="cap-item">
+      <span class="cap-tag enforcement">Case Management</span>
+      <h3>ICM: The Backbone System</h3>
+      <p>The <a class="cite" href="https://epic.org/documents/epic-v-ice-palantir-databases/" target="_blank" rel="noopener">Investigative Case Management system</a> is the official system of record for all HSI investigative cases. It enables agents to make connections between subject records across multiple databases, conduct telephone and address searches, link cases across jurisdictions, and interface with CBP systems for lookout and seizure tracking. Every ICE agent has access to it. ICM has been described by ICE as "mission critical" and is built entirely on Palantir's proprietary platform, making it impossible to transfer to another vendor without rebuilding from scratch.</p>
+      <div class="cap-source">Sources: <a href="https://epic.org/documents/epic-v-ice-palantir-databases/" target="_blank" rel="noopener">EPIC litigation</a> · <a href="https://sam.gov/opp/f71acee6010c423db4902446a59a690c/view" target="_blank" rel="noopener">ICE J&amp;A-25-0092</a> · <a href="https://www.aclu.org/news/privacy-technology/palantir-deportation-roundup" target="_blank" rel="noopener">ACLU</a></div>
+    </div>
+    <div class="cap-item">
+      <span class="cap-tag logistics">Logistics</span>
+      <h3>Deportation Lifecycle Management</h3>
+      <p>The Immigration Lifecycle Operations pillar manages the physical logistics of deportation at scale — overlaying information about detained or removed individuals against the availability of transportation resources. <a class="cite" href="https://www.404media.co/leaked-palantirs-plan-to-help-ice-deport-people/" target="_blank" rel="noopener">Internal Palantir wiki documents describe work on deportation logistics including transport allocation.</a> <a class="cite" href="https://bhr.stern.nyu.edu/quick-take/palantir-is-profiting-from-trumps-ravenous-appetite-for-deportations/" target="_blank" rel="noopener">ICE detention reached a record 73,000 people</a> as these systems were deployed.</p>
+      <div class="cap-source">Sources: <a href="https://www.404media.co/leaked-palantirs-plan-to-help-ice-deport-people/" target="_blank" rel="noopener">404 Media Slack leaks</a> · <a href="https://bhr.stern.nyu.edu/quick-take/palantir-is-profiting-from-trumps-ravenous-appetite-for-deportations/" target="_blank" rel="noopener">NYU Stern Center</a> · <a href="https://investigate.afsc.org/company/palantir" target="_blank" rel="noopener">AFSC Investigate</a></div>
+    </div>
+  </div>
+</section>
+
+<div class="pullquote-section">
+  <blockquote>"That commitment no longer holds. Palantir's software is helping U.S. Immigration and Customs Enforcement track undocumented immigrants and deport them faster. The software, ImmigrationOS, plays a key role in supporting the Trump administration's mass deportation agenda."</blockquote>
+  <cite>— <a href="https://www.washingtonpost.com/technology/2025/12/03/palantir-immigration-ice/" target="_blank" rel="noopener">The Washington Post, December 3, 2025</a></cite>
+</div>
+
+<section id="concerns" class="concerns">
+  <div class="concerns-inner">
+    <div class="section-header">
+      <h2>Civil Liberties &amp; Legal Concerns</h2>
+      <span class="kicker" style="color:#a8a29e">Documented risks and ongoing debates</span>
+    </div>
+    <div class="concerns-grid">
+      <div class="concern-item">
+        <h3>Fourth Amendment &amp; Probable Cause</h3>
+        <p>ELITE's probabilistic "confidence scores" drive neighborhood-scale raids rather than address-specific certainty. The Fourth Amendment requires probable cause for searches and seizures. Critics argue an <a class="cite" href="https://www.biometricupdate.com/202601/ice-using-data-and-probability-to-decide-where-to-detain-and-arrest-people" target="_blank" rel="noopener">AI-generated probability score does not constitute probable cause</a> — yet it is directing enforcement operations. <a class="cite" href="https://acaciajustice.org/due-process-violations/" target="_blank" rel="noopener">More than a dozen US citizens have been erroneously detained or deported</a> during the 2025 crackdown.</p>
+      </div>
+      <div class="concern-item">
+        <h3>Healthcare Data as Surveillance</h3>
+        <p>Using Medicaid records to identify deportation targets creates a profound chilling effect on healthcare-seeking behavior. <a class="cite" href="https://fortune.com/2026/01/26/ice-allegedly-uses-palantir-tool-tracking-medicaid-data/" target="_blank" rel="noopener">KFF analysts note it may not be technically possible to isolate undocumented individuals in Medicaid data</a> — meaning the dragnet sweeps up legal residents and potentially citizens. The EFF described it as ICE <a class="cite" href="https://www.eff.org/deeplinks/2026/01/ice-using-palantir-tool-feeds-medicaid-data" target="_blank" rel="noopener">"stalking people for arrest" using healthcare data.</a></p>
+      </div>
+      <div class="concern-item">
+        <h3>Vendor Lock-In &amp; Democratic Accountability</h3>
+        <p>Because ImmigrationOS is built on Palantir's proprietary code, <a class="cite" href="https://sam.gov/opp/f71acee6010c423db4902446a59a690c/view" target="_blank" rel="noopener">no other vendor can bid for or maintain this work</a>. The design choices embedded in ImmigrationOS — which data to ingest, what triggers an alert, how confidence scores are weighted — are enforcement policy decisions made without public deliberation, <a class="cite" href="https://www.aclu.org/news/privacy-technology/palantir-deportation-roundup" target="_blank" rel="noopener">congressional authorization, or independent oversight.</a></p>
+      </div>
+      <div class="concern-item">
+        <h3>Algorithmic Bias</h3>
+        <p>No independent audit of ImmigrationOS's accuracy or bias has been made public. <a class="cite" href="https://www.americanimmigrationcouncil.org/blog/ice-immigrationos-palantir-ai-track-immigrants/" target="_blank" rel="noopener">Precedent from COMPAS — a criminal justice AI found nearly twice as likely to incorrectly flag Black defendants as high-risk</a> — demonstrates how algorithmic systems replicate and amplify societal biases. The consequences here are deportation, family separation, and detention.</p>
+      </div>
+      <div class="concern-item">
+        <h3>Conflict of Interest</h3>
+        <p><a class="cite" href="https://www.americanimmigrationcouncil.org/blog/ice-immigrationos-palantir-ai-track-immigrants/" target="_blank" rel="noopener">Stephen Miller, the Trump administration's chief architect of immigration policy, holds a substantial financial stake in Palantir</a> — underscoring conflicts of interest in the government's embrace of the company's technology. The Project on Government Oversight raised this as a significant ethics concern, noting Miller's policy decisions directly increase demand for Palantir's product.</p>
+      </div>
+      <div class="concern-item">
+        <h3>Human Rights Due Diligence</h3>
+        <p><a class="cite" href="https://www.amnesty.org/en/documents/amr51/0211/2025/en/" target="_blank" rel="noopener">Amnesty International's August 2025 correspondence</a> challenged Palantir to demonstrate adequate human rights due diligence before entering and renewing ERO contracts — particularly given the company's own UN Guiding Principles-based human rights policy. Amnesty argued that given Palantir's <a class="cite" href="https://media.business-humanrights.org/media/documents/Palantir-Technologies-Response-to-Amnesty-International-Letter_VYQb6ID.pdf" target="_blank" rel="noopener">prior acknowledgment of these risks (2020 letter)</a>, the company "could and should have known" about foreseeable harms.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="sources" class="sources-section">
+  <div class="section-header">
+    <h2>Primary Sources &amp; Documentation</h2>
+    <span class="kicker">Full source record — all links open in new tab</span>
+  </div>
+  <table class="sources-table">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Title / Description</th>
+        <th>Date</th>
+        <th>Publisher</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td><span class="source-type gov">Gov</span></td><td><a href="https://sam.gov/opp/f71acee6010c423db4902446a59a690c/view" target="_blank" rel="noopener">ICE Limited Sources Justification J&amp;A-25-0092 — ImmigrationOS initial contract</a></td><td>April 2025</td><td>ICE / SAM.gov</td></tr>
+      <tr><td><span class="source-type gov">Gov</span></td><td><a href="https://www.usaspending.gov/award/CONT_AWD_70CTD022FR0000170_7012_GS35F0086U_4732" target="_blank" rel="noopener">Task Order 70CTD022FR0000170 — full modification history</a></td><td>2022–2026</td><td>USASpending.gov</td></tr>
+      <tr><td><span class="source-type gov">Gov</span></td><td><a href="https://epic.org/documents/epic-v-ice-palantir-databases/" target="_blank" rel="noopener">EPIC v. ICE — FOIA litigation record on FALCON and ICM</a></td><td>Ongoing</td><td>Electronic Privacy Information Center</td></tr>
+      <tr><td><span class="source-type press">Press</span></td><td><a href="https://www.washingtonpost.com/technology/2025/12/03/palantir-immigration-ice/" target="_blank" rel="noopener">"How Palantir shifted course to play key role in ICE deportations"</a></td><td>Dec. 3, 2025</td><td>The Washington Post</td></tr>
+      <tr><td><span class="source-type press">Press</span></td><td><a href="https://www.404media.co/elite-the-palantir-app-ice-uses-to-find-neighborhoods-to-raid/" target="_blank" rel="noopener">"ELITE: The Palantir App ICE Uses to Find Neighborhoods to Raid"</a></td><td>Jan. 20, 2026</td><td>404 Media</td></tr>
+      <tr><td><span class="source-type press">Press</span></td><td><a href="https://www.404media.co/here-is-the-user-guide-for-elite-the-tool-palantir-made-for-ice/" target="_blank" rel="noopener">"Here is the User Guide for ELITE, the Tool Palantir Made for ICE"</a></td><td>Jan. 30, 2026</td><td>404 Media</td></tr>
+      <tr><td><span class="source-type press">Press</span></td><td><a href="https://www.404media.co/leaked-palantirs-plan-to-help-ice-deport-people/" target="_blank" rel="noopener">"Leaked: Palantir's Plan to Help ICE Deport People" — Akash Jain Slack messages</a></td><td>April 17, 2025</td><td>404 Media</td></tr>
+      <tr><td><span class="source-type press">Press</span></td><td><a href="https://www.axios.com/local/denver/2025/05/01/palantir-deportations-ice-immigration-trump" target="_blank" rel="noopener">"ICE pays Palantir $30M to build new tool to track and deport immigrants"</a></td><td>May 1, 2025</td><td>Axios Denver</td></tr>
+      <tr><td><span class="source-type press">Press</span></td><td><a href="https://fortune.com/2026/01/26/ice-allegedly-uses-palantir-tool-tracking-medicaid-data/" target="_blank" rel="noopener">"ICE alleged to use Palantir tool that uses Medicaid data to track arrest targets"</a></td><td>Jan. 26, 2026</td><td>Fortune</td></tr>
+      <tr><td><span class="source-type press">Press</span></td><td><a href="https://fortune.com/2025/12/09/palantir-new-contract-uscis-ice/" target="_blank" rel="noopener">"New contract shows Palantir is working on a tech platform for USCIS"</a></td><td>Dec. 9, 2025</td><td>Fortune</td></tr>
+      <tr><td><span class="source-type press">Press</span></td><td><a href="https://thehill.com/policy/technology/5667232-palantir-trump-administration-surveillance/" target="_blank" rel="noopener">"Palantir courts major federal contracts — and controversy — in Trump era"</a></td><td>Jan. 3, 2026</td><td>The Hill</td></tr>
+      <tr><td><span class="source-type press">Press</span></td><td><a href="https://www.nytimes.com/2025/06/17/technology/palantir-government-contracts-democrats-letter.html" target="_blank" rel="noopener">"Lawmakers Demand Palantir Provide Information About U.S. Contracts"</a></td><td>June 17, 2025</td><td>The New York Times</td></tr>
+      <tr><td><span class="source-type press">Press</span></td><td><a href="https://www.biometricupdate.com/202601/ice-using-data-and-probability-to-decide-where-to-detain-and-arrest-people" target="_blank" rel="noopener">"ICE using data and probability to decide where to detain and arrest people"</a></td><td>Jan. 16, 2026</td><td>Biometric Update</td></tr>
+      <tr><td><span class="source-type press">Press</span></td><td><a href="https://www.rsn.org/001/documents-offer-rare-insight-on-ices-close-relationship-with-palantir.html" target="_blank" rel="noopener">"Documents Offer Rare Insight on ICE's Close Relationship With Palantir"</a></td><td>Sept. 22, 2025</td><td>The Guardian / RSN</td></tr>
+      <tr><td><span class="source-type ngo">NGO</span></td><td><a href="https://www.amnesty.org/en/documents/amr51/0211/2025/en/" target="_blank" rel="noopener">Amnesty International AMR 51/0211/2025 — Palantir correspondence (July–August 2025)</a></td><td>2025</td><td>Amnesty International</td></tr>
+      <tr><td><span class="source-type ngo">NGO</span></td><td><a href="https://www.aclu.org/news/privacy-technology/palantir-deportation-roundup" target="_blank" rel="noopener">"All the Ways Palantir is Assisting Trump's Abusive Removal Campaign"</a></td><td>2026</td><td>ACLU</td></tr>
+      <tr><td><span class="source-type ngo">NGO</span></td><td><a href="https://www.americanimmigrationcouncil.org/blog/ice-immigrationos-palantir-ai-track-immigrants/" target="_blank" rel="noopener">"ICE to Use ImmigrationOS by Palantir, a New AI System, to Track Immigrants"</a></td><td>Aug. 22, 2025</td><td>American Immigration Council</td></tr>
+      <tr><td><span class="source-type ngo">NGO</span></td><td><a href="https://investigate.afsc.org/company/palantir" target="_blank" rel="noopener">Palantir Technologies — full contracts and enforcement record</a></td><td>Updated 2026</td><td>AFSC Investigate</td></tr>
+      <tr><td><span class="source-type ngo">NGO</span></td><td><a href="https://immpolicytracking.org/policies/reported-palantir-awarded-30-million-to-build-immigrationos-surveillance-platform-for-ice/" target="_blank" rel="noopener">Immigration Policy Tracking — Palantir Awarded $30M for ImmigrationOS</a></td><td>2025</td><td>Immigration Policy Tracking Project</td></tr>
+      <tr><td><span class="source-type ngo">NGO</span></td><td><a href="https://www.ohchr.org/documents/publications/guidingprinciplesbusinesshr_en.pdf" target="_blank" rel="noopener">UN Guiding Principles on Business and Human Rights</a></td><td>2011</td><td>UN OHCHR</td></tr>
+      <tr><td><span class="source-type academic">Academic</span></td><td><a href="https://bhr.stern.nyu.edu/quick-take/palantir-is-profiting-from-trumps-ravenous-appetite-for-deportations/" target="_blank" rel="noopener">"Palantir Is Profiting from Trump's Ravenous Appetite for Deportations"</a></td><td>2025</td><td>NYU Stern Center for Business &amp; Human Rights</td></tr>
+      <tr><td><span class="source-type academic">Academic</span></td><td><a href="https://www.kff.org/medicaid/issue-brief/ice-access-to-medicaid-data-implications-for-coverage-and-care/" target="_blank" rel="noopener">KFF: ICE Access to Medicaid Data — Implications for Coverage and Care</a></td><td>2026</td><td>KFF (Kaiser Family Foundation)</td></tr>
+      <tr><td><span class="source-type company">Company</span></td><td><a href="https://blog.palantir.com/about-palantir-ddddb78aec29" target="_blank" rel="noopener">Palantir FAQ Blog — official statement on ICE contracting history</a></td><td>Oct. 2025</td><td>Palantir Technologies</td></tr>
+      <tr><td><span class="source-type company">Company</span></td><td><a href="https://media.business-humanrights.org/media/documents/Palantir-Technologies-Response-to-Amnesty-International-Letter_VYQb6ID.pdf" target="_blank" rel="noopener">Palantir letter to Amnesty International — declined ERO/CBP contracts (2020)</a></td><td>Oct. 19, 2020</td><td>Palantir Technologies</td></tr>
+      <tr><td><span class="source-type company">Company</span></td><td><a href="http://edgar.secdatabase.com/2567/119312520239121/filing-main.htm" target="_blank" rel="noopener">Palantir S-1 Registration Statement — reputational risk disclosure re: ICE</a></td><td>Aug. 25, 2020</td><td>US SEC / Palantir Technologies</td></tr>
+      <tr><td><span class="source-type congress">Congress</span></td><td><a href="https://menendez.house.gov/imo/media/doc/palantir_letter.pdf" target="_blank" rel="noopener">Representative Menendez et al. letter to Palantir demanding transparency</a></td><td>Feb. 2026</td><td>US House of Representatives</td></tr>
+      <tr><td><span class="source-type congress">Congress</span></td><td><a href="https://www.nytimes.com/2025/06/17/technology/palantir-government-contracts-democrats-letter.html" target="_blank" rel="noopener">Senator Wyden / Representative Ocasio-Cortez letter on Palantir federal contracts</a></td><td>June 2025</td><td>US Senate / House of Representatives</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<footer>
+  <div class="footer-title">ImmigrationOS — A Public Archive</div>
+  <p>
+    Compiled from government procurement records, federal litigation documents, investigative journalism,<br>
+    civil liberties research, and primary company sources. All dollar figures sourced from SAM.gov, USASpending.gov, and FPDS.<br><br>
+    Contract ID: 70CTD022FR0000170 &nbsp;·&nbsp; Vendor: Palantir Technologies, Inc. &nbsp;·&nbsp; Agency: DHS / ICE / ERO<br>
+    Last updated: April 2026
+  </p>
+</footer>
+
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.style.animationPlayState='running'; });
+},{threshold:0.1});
+document.querySelectorAll('.timeline-item').forEach(item => {
+  item.style.animationPlayState='paused';
+  observer.observe(item);
+});
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click',function(e){
+    e.preventDefault();
+    const t=document.querySelector(this.getAttribute('href'));
+    if(t) t.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+});
+</script>
+</body>
+</html>
